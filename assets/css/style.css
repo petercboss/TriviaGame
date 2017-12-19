@@ -1,0 +1,58 @@
+body {
+    font-family: 'Carrois Gothic SC', sans-serif;
+    color: white;
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+
+.header {
+    background-color: transparent;
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.question {
+    border: 5px solid gray;
+    padding-top: 15px;
+}
+
+#question {
+    border-bottom: 2px solid black;
+    text-align: center;
+    color: black;
+}
+
+#start {
+    margin-top: 50px;
+    width: 200px;
+    font-size: 30px;
+    background-color: black;
+}
+
+#start:hover, .answerchoice:hover {
+    transform: scale(1.1);
+    background-color: black;
+    border: 3px solid gray;
+}
+
+.answers {
+    padding: 20px;
+}
+
+.image {
+    float: left;
+    width: 300px;
+    height: 300px;
+}
+
+.answerchoice {
+    width: 50%;
+    background-color: black;
+    border: 2px solid gray;
+    margin: 15px 0;
+}
