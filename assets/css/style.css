@@ -16,6 +16,10 @@ h1 {
     margin-bottom: 0;
 }
 
+#timer {
+    float: right;
+}
+
 .question {
     border: 5px solid gray;
     padding-top: 15px;
@@ -42,6 +46,10 @@ h1 {
 
 .answers {
     padding: 20px;
+}
+
+.answers h2 {
+    color: black;
 }
 
 .image {
