@@ -23,6 +23,7 @@ h1 {
 .question {
     border: 5px solid gray;
     padding-top: 15px;
+    text-align: center;
 }
 
 #question {
@@ -63,4 +64,9 @@ h1 {
     background-color: black;
     border: 2px solid gray;
     margin: 15px 0;
+}
+
+.restart {
+    background-color: black;
+    width: 100px;
 }

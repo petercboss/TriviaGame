@@ -1,3 +1,4 @@
+// Trivia array
 var questions = [
     {
         question: "Their songs 'This Corrosion' and 'Temple of Love' are in regular rotation in goth clubs to this day. Who are they?",
@@ -56,14 +57,19 @@ var questions = [
     },
 ];
 
+// Global variables
+
 var rightAnswers;
 var currentQuestion;
 var answerIndex;
 var answerArray;
+
+// Timer
+
 var timer = {   
-    timeLimit: 11,
+    timeLimit: 10,
     reset: function() {   
-        timer.timeLimit = 11;
+        timer.timeLimit = 10;
     },
     start: function() {
         startStop = setInterval(timer.countdown, 1000);
@@ -76,8 +82,8 @@ var timer = {
             timer.stop();
             timer.reset();
             currentQuestion++;
-            console.log(currentQuestion);
             $("#question").html("<h2>Times Up!! The correct answer was " + answerArray[answerIndex] + "</h2>");
+            $(".answers").empty();
             setTimeout(nextQuestion, 3000);
         }
         else {
@@ -87,32 +93,45 @@ var timer = {
     }
 };
 
+// Restart
+
 function restart() {
     rightAnswers = 0;
     currentQuestion = 0;
     $("#question").html("<h2>Are you goth or NOT?</h2>");
+    $(".answers").empty();
     $("#start").show();
 };
 
+// Check if all the questions have been asked, otherwise move on to the next question
+
 function nextQuestion() {
-    timer.start();
-    answerIndex = questions[currentQuestion].rightAnswer;
-    $("#question").html("<h3>" + questions[currentQuestion].question + "</h3>");
-    $(".answers").html("<img class='img-responsive img-rounded image' src='" + questions[currentQuestion].img + "'>")
-    answerArray = questions[currentQuestion].answers;
-    for (var i = 0; i < answerArray.length; i++) {
-        $(".answers").append("<div class='btn btn-primary answerchoice' data-name=" + i + ">" + answerArray[i] + "</div>")
+    if (currentQuestion === 8) {
+        $(".answers").html("<h2>Number Correct: " + rightAnswers + "</h2><h2>Number Wrong: " + eval(8 - rightAnswers) + "</h2>");
+        $(".answers").append("<br><div class='btn btn-primary restart'>Try Again</div>")
+    }
+    else {
+        timer.start();
+        answerIndex = questions[currentQuestion].rightAnswer;
+        $("#question").html("<h3>" + questions[currentQuestion].question + "</h3>");
+        $(".answers").html("<img class='img-responsive img-rounded image' src='" + questions[currentQuestion].img + "'>")
+        answerArray = questions[currentQuestion].answers;
+        for (var i = 0; i < answerArray.length; i++) {
+            $(".answers").append("<div class='btn btn-primary answerchoice' data-name=" + i + ">" + answerArray[i] + "</div>")
+        };
     };
 };
 
 $(document).ready(function() {
-    
+
     restart();
 
     $("#start").on("click", function() {
         $(this).hide();
         nextQuestion();
     });
+
+// Check if clicked answer is correct
 
     $(".answers").on("click", ".answerchoice", function() {
         var answerClicked = $(this).attr("data-name");
@@ -123,17 +142,16 @@ $(document).ready(function() {
         if (parseInt(answerClicked) === answerIndex) {
             rightAnswers++;
             $("#question").html("<h2>Correct!!!</h2>");
+            setTimeout(nextQuestion, 3000);
         }
         else {
             $("#question").html("<h2>Wrong!! The correct answer was " + answerArray[answerIndex] + "</h2>");
-        };
-        if (currentQuestion === 8) {
-            $(".answers").html("<h2>Number Correct: " + rightAnswers + "</h2><h2>Number Wrong: " + eval(8 - rightAnswers) + "</h2>");
-            $(".answers").append("<div class='btn btn-primary reset'>Reset</div>")
-        }
-        else {
             setTimeout(nextQuestion, 3000);
         };
+    });
+
+    $(".answers").on("click", ".restart", function() {
+        restart();
     });
 
 });
